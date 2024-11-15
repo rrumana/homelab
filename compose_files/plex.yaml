@@ -1,0 +1,22 @@
+---
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Los_Angeles
+      - VERSION=latest
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - /home/rcrumana/Dev/docker/plex/config/:/config
+      - /media/Torrent/Shows:/tv
+      - /media/Torrent/Movies:/movies
+      - /media/Torrent/Music:/music
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
