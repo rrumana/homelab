@@ -5,17 +5,51 @@ This repository will contain the docker compose yaml files that power my homelab
 
 I am self hosting all of these services in my laptop, although admittedly I don't use them very much (except immich and vaultwarden, those two are amazing). This was more a project to learn all about docker, home networking, and seeing how far I could push my poor little laptop.
 
-Network Topology:
+Network Hardware Topology:
  - Firewall: BKHD 1U Server
    - Ports: 6x GBE, 4x SFP+
    - CPU: Intel Atom 16 Core C3958
    - RAM: 16GB DDR4 SODIMM
    - Storage: 128GB NVMe SSD
-   - OS: OPNsense
  - Switch: TP-Link TL-SG105
    - Ports: 5x GBE
-   - VLANs: 1
  - Access Point: Ubiquiti U6-Pro
    - Networks: Main, Guest, IOT
+ - Server: Lenovo Legion Slim 7 16ARHA7
+   - This laptop wants death so bad. It is not remotely stable, and does not even boot unless plugged in. It is also my only laptop, so my homelab ceases to function when it leaves my house. This is rare but still, I need some sort of box that I leave at home to take over.
+   - CPU: AMD Ryzen 9 5900HX
+   - RAM: 16GB DDR4 SODIMM
+   - Storage: 1TB NVMe SSD
+   - OS: Arch Linux
+   - Containers running: 34
+
+Network Software Topology:
+ - Firewall: OPNsense
+   - The heart of my network setup.
+   - Services: DHCP, DNS, VPN (Wireguard), NAT, Port Forwarding, etc.
+   - Many Vlans:
+     - AT&T VLAN: Required for the WAN my AT&T Fiber connection.
+     - Home VLAN: My main network, where all my devices are.
+     - Wireguard VLAN: VPN clients have access to WAN and Home VLAN, determined on a case by case basis.
+     - Guest VLAN: For guests, isolated from the main network.
+     - IOT VLAN: For IOT devices, isolated from the main network.
+     - Management VLAN: For managing the network devices using their dedicated OOB ports.
+ - Switch: Unmanaged
+   - Just a dumb switch, no configuration needed.
+   - I need a new one, this one has a bad habit of crashing
+ - VPN: Wireguard
+   - I have a VPN server running on the firewall, which I use to access my network remotely.
+   - I have a VPN client running on my personal devices to access my network remotely. This gives me access to my services from anywhere in the world provided my server is working (more on that later).
+ - Important containers:
+   - Portainer: For managing the docker containers.
+   - Watchtower: For updating the docker containers.
+   - Nginx Proxy Manager: to manage SSL, reverse proxy services, and domain name management.
+   - Homearr: For a configurable dashboard.
+   - Immich: For syncing and storing my photos with my family.
+   - Vaultwarden: For managing my passwords. I built my own password manager but truthfully this one is more fully featured and integrates with my personal devices better.
+   - Nextcloud: For managing my files. A great alternative to Onedrive or Google Drive.
+   - Plex: For managing my media. I don't use this much, but it's nice when I want to watch home movies on the big screen.
+   - Unifi Network Application: For managng my Ubiquity devices.
+   - Portfolio: A self made docker container that hosts my personal website.
 
 I will update this list if I decide to host more or less services, and will make some sort of periodic updates about the network configuration.
