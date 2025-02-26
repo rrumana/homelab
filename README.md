@@ -1,9 +1,9 @@
 # homelab
 My homelab configuration
 
-This repository will contain the docker compose yaml files that power my homelab, which is made up of 34 actively running containers as of the writing of this message. Obviously the env files and config files are private, but this should serve as a public record of my lab.
+This repository will contain the docker compose yaml files that power my homelab, which is made up of 36 actively running containers as of the writing of this message. Obviously the env files and config files are private, but this should serve as a public record of my lab.
 
-I am self hosting all of these services in my laptop, although admittedly I don't use them very much (except immich and vaultwarden, those two are amazing). This was more a project to learn all about docker, home networking, and seeing how far I could push my poor little laptop.
+I am self hosting all of these services, although admittedly I don't use them very much (except immich and vaultwarden, those two are amazing). This was more a project to learn all about docker, home networking.
 
 Network Hardware Topology:
  - Firewall: BKHD 1U Server
@@ -11,17 +11,18 @@ Network Hardware Topology:
    - CPU: Intel Atom 16 Core C3958
    - RAM: 16GB DDR4 SODIMM
    - Storage: 128GB NVMe SSD
- - Switch: TP-Link TL-SG105
-   - Ports: 5x GBE
+ - Switch: Netgear GS308EP
+   - An upgrade from my previous TP-Link switch. The old switch would occassionally stop sending data and wouldneed to be power cycled.
+   - Ports: 8x GBE
  - Access Point: Ubiquiti U6-Pro
    - Networks: Main, Guest, IOT
- - Server: Lenovo Legion Slim 7 16ARHA7
-   - This laptop wants death so bad. It is not remotely stable, and does not even boot unless plugged in. It is also my only laptop, so my homelab ceases to function when it leaves my house. This is rare but still, I need some sort of box that I leave at home to take over.
-   - CPU: AMD Ryzen 9 5900HX
-   - RAM: 16GB DDR4 SODIMM
-   - Storage: 1TB NVMe SSD
+ - Server: Minisforum Elitemini AI370
+   - My old laptop finally died, this is it's replacement.
+   - CPU: Ryzen AI 9 HX 370
+   - RAM: 32GB DDR5-7500 (soldered)
+   - Storage: 2 x 4TB Samsung 990 Pro SSDs (Raid 1)
    - OS: Arch Linux
-   - Containers running: 34
+   - Containers running: 36
 
 Network Software Topology:
  - Firewall: OPNsense
@@ -36,10 +37,9 @@ Network Software Topology:
      - Management VLAN: For managing the network devices using their dedicated OOB ports.
  - Switch: Unmanaged
    - Just a dumb switch, no configuration needed.
-   - I need a new one, this one has a bad habit of crashing
  - VPN: Wireguard
    - I have a VPN server running on the firewall, which I use to access my network remotely.
-   - I have a VPN client running on my personal devices to access my network remotely. This gives me access to my services from anywhere in the world provided my server is working (more on that later).
+   - I have a VPN client running on my personal devices to access my network remotely. This gives me access to my services from anywhere in the world provided my server is working.
  - Important containers:
    - Portainer: For managing the docker containers.
    - Watchtower: For updating the docker containers.
