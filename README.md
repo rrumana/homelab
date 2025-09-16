@@ -1,7 +1,7 @@
 # homelab
 My homelab configuration
 
-This repository Is depreciated, the hardware information is still correct but I no longer use docker compose. My homelab software is now located here:
+This repository Is depreciated, the hardware information is still correct but I no longer use docker compose. My homelab software is now located [click here](https://github.com/rrumana/k8s-homelab)
 
 Network Hardware Topology:
  - Firewall: BKHD 1U Server
